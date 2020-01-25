@@ -1,0 +1,21 @@
+export const BASE_URL = 'https://stein.efishery.com/v1/storages/5e1edf521073e315924ceab4';
+export const LIMIT = 4;
+
+export const LOAD_AREA_SUCCESS = 'LOAD_AREA_SUCCESS';
+export const LOAD_AREA_FAILURE = 'LOAD_AREA_FAILURE';
+
+export const LOAD_SIZE_SUCCESS = 'LOAD_SIZE_SUCCESS';
+export const LOAD_SIZE_FAILURE = 'LOAD_SIZE_FAILURE';
+
+export const LOAD_DATA_SUCCESS = 'LOAD_DATA_SUCCESS';
+export const LOAD_DATA_FAILURE = 'LOAD_DATA_FAILURE';
+
+export const ADD_DATA_SUCCESS = 'ADD_DATA_SUCCESS';
+export const ADD_DATA_FAILURE = 'ADD_DATA_FAILURE';
+
+export const EDIT_DATA_SUCCESS = 'EDIT_DATA_SUCCESS';
+export const EDIT_DATA_FAILURE = 'EDIT_DATA_FAILURE';
+
+export const DELETE_DATA = 'DELETE_DATA';
+export const DELETE_DATA_SUCCESS = 'DELETE_DATA_SUCCESS';
+export const DELETE_DATA_FAILURE = 'DELETE_DATA_FAILURE';

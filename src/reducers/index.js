@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
-import list from './list.js';
+import { connectRouter } from 'connected-react-router';
+import data from './data';
 import area from './area';
 import size from './size';
 
-export default combineReducers({
-    list,
-    area,
-    size
-})
+export default history => 
+    combineReducers({
+        router: connectRouter(history),
+        data,
+        area,
+        size
+});

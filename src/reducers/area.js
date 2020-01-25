@@ -1,16 +1,30 @@
-const area = (state = [], action) => {
-    switch (action.type) {
-        case 'READ_AREA_SUCCESS':
-            return action.list.map((item, index) => {
-                return {
-                    province: item.province,
-                    city: item.city,
-                    sent: true
-                };
-            })
-        default:
-            return state;
-    }
+import {
+    LOAD_AREA_SUCCESS,
+    LOAD_AREA_FAILURE
+} from '../constants';
+
+const initialState = {
+    areas: [],
+    province: '',
+    city: '',
+    message: { text: '', type: ''}
 }
 
-export default area;
+export default function area(state = initialState, action) {
+    const {
+        area,
+        province,
+        city,
+        message,
+        areas
+    } = action;
+}
+
+let newAreas
+
+switch (type) {
+    case LOAD_AREA_SUCCESS:
+    case LOAD_AREA_FAILURE:
+    default:
+        return { ...state, message: { text: '', type: ''}}
+}
