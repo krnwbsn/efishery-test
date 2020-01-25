@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-//import { editList, deleteList } from '../actions'; // readArea, readSize, readList, postList
+// import { deletePhonebook, resendPhonebook, editPhonebook } from '../actions';
 
-class ListItem extends React.Component {
+class DataItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = { edit: false, komoditasEdit: '', area_provinsiEdit: '', area_kotaEdit: '', sizeEdit: '', priceEdit: '', tgl_parsedEdit: '', oldKomoditas: this.props.komoditas, oldArea_provinsi: this.props.area_provinsi, oldArea_kota: this.props.area_kota, oldSize: this.props.size, oldPrice: this.props.price, oldTgl_parsed: this.props.tgl_parsed };
@@ -16,7 +16,7 @@ class ListItem extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ oldKomoditas: this.props.komoditas, oldArea_provinsi: this.props.area_provinsi, oldArea_kota: this.props.area_kota, oldSize: this.props.size, oldPrice: this.props.price, oldTgl_parsed: this.props.tgl_parsed });
+        this.setState({ komoditasEdit: this.props.komoditas, area_provinsiEdit: this.props.area_provinsi, area_kotaEdit: this.props.area_kota, sizeEdit: this.props.size, priceEdit: this.props.price, tgl_parsedEdit: this.props.tgl_parsed });
     }
     changeKomoditas(e) {
         this.setState({ komoditasEdit: e.target.value });
@@ -33,11 +33,8 @@ class ListItem extends React.Component {
     changePrice(e) {
         this.setState({ priceEdit: e.target.value });
     }
-    changeTgl_parsed(e) {
-        this.setState({ tgl_parsedEdit: e.target.value });
-    }
-    editListSave(e) {
-        this.props.editList(this.state.komoditasEdit, this.state.area_provinsiEdit, this.state.area_kotaEdit, this.state.sizeEdit, this.state.priceEdit, this.state.tgl_parsedEdit, this.state.oldKomoditas, this.state.oldArea_provinsi, this.state.oldArea_kota, this.state.oldSize, this.state.oldPrice, this.state.oldTgl_parsed);
+    editDataSave(e) {
+        this.props.editData(this.state.komoditasEdit, this.state.area_provinsiEdit, this.state.area_kotaEdit, this.state.sizeEdit, this.state.priceEdit, this.state.tgl_parsedEdit, this.state.oldKomoditas, this.state.oldArea_provinsi, this.state.oldArea_kota, this.state.oldSize, this.state.oldPrice, this.state.oldTgl_parsed);
         this.setState({ edit: false });
     }
 
@@ -60,11 +57,12 @@ class ListItem extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    // deleteList: () => dispatch(deleteList(ownProps)),
-    // editList: (komoditas, area_provinsi, area_kota, size, price, tgl_parsed) => dispatch(editList(ownProps.uuid, komoditas, area_provinsi, area_kota, size, price, tgl_parsed))
+    // deletePhonebook: () => dispatch(deletePhonebook(ownProps)),
+    // resendPhonebook: () => dispatch(resendPhonebook(ownProps.id_fake, ownProps.name, ownProps.phone)),
+    // editPhonebook: (name, phone, oldName, oldPhone) => dispatch(editPhonebook(ownProps.origin_id, name, phone, oldName, oldPhone)) 
 })
 
 export default connect(
     null,
     mapDispatchToProps
-)(ListItem)
+)(DataItem)
