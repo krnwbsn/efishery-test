@@ -27,3 +27,40 @@ export const getData = async ({ dispatch }) => {
 		console.error(e);
 	}
 }
+
+export const getArea = async ({ dispatch }) => {
+	try {
+		const response = await axios.get(`${API_URL}/option_area`);
+		const dataArea = response.data;
+
+		dataArea.forEach(item => {
+			dispatch({
+				type: 'GET_AREA',
+				data: {
+					province: item.province,
+					city: item.city
+				},
+			})
+		});
+	} catch (e) {
+		console.error(e);
+	}
+}
+
+export const getSize = async ({ dispatch }) => {
+	try {
+		const response = await axios.get(`${API_URL}/option_size`);
+		const dataSize = response.data;
+
+		dataSize.forEach(item => {
+			dispatch({
+				type: 'GET_SIZE',
+				data: {
+					size: item.size
+				},
+			})
+		});
+	} catch (e) {
+		console.error(e);
+	}
+}

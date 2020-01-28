@@ -1,33 +1,47 @@
 const postReducer = (state = [], action) => {
   switch (action.type) {
     case 'LOAD_POST':
-      return action.data.map((post, index) => {
+      return action.data.map((item, index) => {
         return {
           index: index + 1,
           sent: true,
-          ...post
+          ...item
         };
       })
     case "ADD_POST":
       return [...state, { ...action.data }];
+    case "GET_AREA":
+      return action.dataArea.map((item, index) => {
+        return {
+          sent: true,
+          ...item
+        };
+      }) 
+    case "GET_SIZE":
+      return action.dataSize.map((item, index) => {
+        return {
+          sent: true,
+          ...item
+        };
+      }) 
     case "DELETE_POST":
-      return state.filter(post => post.id !== action.id);
+      return state.filter(item => item.id !== action.id);
     case "EDIT_POST":
       return state.map(
-        post =>
-          post.id === action.id ? { ...post, editing: !post.editing } : post
+        item =>
+          item.id === action.id ? { ...item, isEdit: !item.isEdit } : item
       );
     case "UPDATE":
-      return state.map(post => {
-        if (post.id === action.id) {
+      return state.map(item => {
+        if (item.id === action.id) {
           return {
-            ...post,
+            ...item,
             ...action.data,
-            editing: !post.editing,
+            isEdit: !item.isEdit,
           };
         }
         
-        return post;
+        return item;
       });
     default:
       return state;

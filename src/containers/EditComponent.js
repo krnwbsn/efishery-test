@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Button } from 'reactstrap';
 
 class EditComponent extends Component {
   handleEdit = e => {
@@ -13,7 +14,7 @@ class EditComponent extends Component {
       getPrice,
     } = this;
 
-    const { dispatch, post } = this.props;
+    const { dispatch, item } = this.props;
 
     const data = {
       komoditas: getKomoditas.value,
@@ -22,56 +23,64 @@ class EditComponent extends Component {
       size: getSize.value,
       price: getPrice.value,
     };
-    
+
     dispatch({
       type: "UPDATE",
-      id: post.id,
+      id: item.id,
       data,
     });
   };
 
   render() {
     return (
-      <div key={this.props.post.id} className="post">
-        <form className="form" onSubmit={this.handleEdit}>
-          <input
-            required
-            type="text"
-            ref={(input) => this.getKomoditas = input}
-            defaultValue={this.props.post.komoditas}
-            placeholder="Komoditas"
-          />
+      <tr>
+        <td><input
+          required
+          type="text"
+          ref={(input) => this.getKomoditas = input}
+          defaultValue={this.props.item.komoditas}
+          placeholder="Komoditas"
+        /></td>
+        <td>
           <input
             required
             rows="5"
             ref={(input) => this.getArea_provinsi = input}
-            defaultValue={this.props.post.area_provinsi}
+            defaultValue={this.props.item.area_provinsi}
             placeholder="Provinsi"
           />
+        </td>
+        <td>
           <input
             required
             type="text"
             ref={(input) => this.getArea_kota = input}
-            defaultValue={this.props.post.area_kota}
+            defaultValue={this.props.item.area_kota}
             placeholder="Kota"
           />
+        </td>
+        <td>
           <input
             required
             rows="5"
             ref={(input) => this.getSize = input}
-            defaultValue={this.props.post.size}
+            defaultValue={this.props.item.size}
             placeholder="Size"
           />
+        </td>
+        <td>
           <input
             required
             rows="5"
             ref={(input) => this.getPrice = input}
-            defaultValue={this.props.post.price}
+            defaultValue={this.props.item.price}
             placeholder="Price"
           />
-          <button>Update</button>
-        </form>
-      </div>
+        </td>
+        <td>
+          <Button outline color="warning" onSubmit={this.handleEdit}>Update</Button>
+        </td>
+      </tr>
     );
   }
 }

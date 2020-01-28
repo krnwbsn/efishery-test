@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
+import { Container, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 class PostForm extends Component {
 
   handleSubmit = e => {
@@ -14,16 +15,16 @@ class PostForm extends Component {
       getArea_provinsi,
       getArea_kota,
       getSize,
-      getPrice,
+      getPrice
     } = this;
 
     if (!getKomoditas.value || !getArea_provinsi.value || !getArea_kota.value || !getSize.value || !getPrice.value) {
       alert('Isi form yang lengkap');
       return false;
     }
-    
+
     const { dispatch } = this.props;
-    
+
     dispatch({
       type: 'ADD_POST',
       data: {
@@ -36,7 +37,7 @@ class PostForm extends Component {
         tgl_parsed: parsedDate,
         timestamp: moment().unix(),
         isEdit: false
-      },
+      }
     });
 
     // Reset Form
@@ -49,29 +50,45 @@ class PostForm extends Component {
 
   render() {
     return (
-      <div className="post-container">
-        <h1 className="post_heading">Create Post</h1>
-        <form className="form" onSubmit={this.handleSubmit}>
-          <div>
-            <input type="text" ref={(input) => this.getKomoditas = input} placeholder="Komoditas" />
-          </div>
-          <div>
-            <input type="text" ref={(input) => this.getArea_provinsi = input} placeholder="Provinsi" />
-          </div>
-          <div>
-            <input type="text" ref={(input) => this.getArea_kota = input} placeholder="Kota" />
-          </div>
-          <div>
-            <input type="text" ref={(input) => this.getSize = input} placeholder="Size" />
-          </div>
-          <div>
-            <input type="text" ref={(input) => this.getPrice = input} placeholder="Price" />
-          </div>
-          <div>
-            <button type="submit">Save</button>
-          </div>
-        </form>
-      </div>
+      <Container>
+        <FormGroup row>
+        <Col sm={6}>
+          <h4>Create Data</h4>
+        </Col>
+        </FormGroup>
+        <hr />
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup row>
+            <Label for="komoditas" sm={1}>Komoditas</Label>
+            <Col sm={3}>
+              <Input type="text" ref={(input) => this.getKomoditas = input} placeholder="Komoditas" />
+            </Col>
+            <Label for="area_provinsi" sm={1}>Provinsi</Label>
+            <Col sm={3}>
+              <Input type="text" ref={(input) => this.getArea_provinsi = input} placeholder="Provinsi" />
+            </Col>
+            <Label for="area_kota" sm={1}>Kota</Label>
+            <Col sm={3}>
+              <Input type="text" ref={(input) => this.getArea_kota = input} placeholder="Kota" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="size" sm={1}>Size</Label>
+            <Col sm={3}>
+              <Input type="number" ref={(input) => this.getSize = input} placeholder="Size" />
+            </Col>
+            <Label for="price" sm={1}>Price</Label>
+            <Col sm={3}>
+              <Input type="number" ref={(input) => this.getPrice = input} placeholder="Price" />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Col sm={6}>
+              <Button type="submit" outline color="success" align="right">Save</Button>
+            </Col>
+          </FormGroup>
+        </Form>
+      </Container>
     );
   }
 }

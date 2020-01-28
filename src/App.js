@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import PostForm from "./containers/PostForm";
 import AllPost from "./containers/AllPost";
-
+import { Container } from 'reactstrap';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="navbar">
-          <h2 className="center ">Post It</h2>
-        </div>
+      <Container>
+        <Container>
+          <h2>efishery test</h2>
+          <br />
+        </Container>
         <PostForm />
         <AllPost />
-      </div>
+      </Container>
     );
   }
 }

@@ -1,33 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Button } from 'reactstrap';
 
-function Post({ post, dispatch }) {
+function Post({ item, dispatch }) {
   return (
-    <div className="post">
-      <h5>{post.komoditas}</h5>
-      <h5>{post.area_provinsi}</h5>
-      <h5>{post.area_kota}</h5>
-      <h5>{post.size}</h5>
-      <h5>{post.price}</h5>
-      <div className="control-buttons">
-        <button
-          className="edit"
-          onClick={() =>
-            dispatch({ type: "EDIT_POST", id: post.id })
-          }
-        >
-          Edit
-        </button>
-        <button
+    <tr>
+      <td>{item.komoditas}</td>
+      <td>{item.area_provinsi}</td>
+      <td>{item.area_kota}</td>
+      <td>{item.size}</td>
+      <td>{item.price}</td>
+      <td><Button outline color="success"
+        className="edit"
+        onClick={() =>
+          dispatch({ type: "EDIT_POST", id: item.id })
+        }
+      >
+        Edit
+        </Button>{' '}
+        <Button outline color="danger"
           className="delete"
           onClick={() =>
-            dispatch({ type: "DELETE_POST", id: post.id })
+            dispatch({ type: "DELETE_POST", id: item.id })
           }
         >
           Delete
-        </button>
-      </div>
-    </div>
+        </Button>
+      </td>
+    </tr>
   );
 }
 
