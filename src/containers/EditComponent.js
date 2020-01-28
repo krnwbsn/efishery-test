@@ -4,20 +4,32 @@ import { connect } from "react-redux";
 class EditComponent extends Component {
   handleEdit = e => {
     e.preventDefault();
-    const newKomoditas = this.getKomoditas.value;
-    const newArea_provinsi = this.getArea_provinsi.value;
-    const newArea_kota = this.getArea_kota.value;
-    const newSize = this.getSize.value;
-    const newPrice = this.getPrice.value;
+
+    const {
+      getKomoditas,
+      getArea_provinsi,
+      getArea_kota,
+      getSize,
+      getPrice,
+    } = this;
+
+    const { dispatch, post } = this.props;
+
     const data = {
-      newKomoditas,
-      newArea_provinsi,
-      newArea_kota,
-      newPrice,
-      newSize
-    }
-    this.props.dispatch({ type: "UPDATE", id: this.props.post.id, data: data });
+      komoditas: getKomoditas.value,
+      area_provinsi: getArea_provinsi.value,
+      area_kota: getArea_kota.value,
+      size: getSize.value,
+      price: getPrice.value,
+    };
+    
+    dispatch({
+      type: "UPDATE",
+      id: post.id,
+      data,
+    });
   };
+
   render() {
     return (
       <div key={this.props.post.id} className="post">
@@ -63,4 +75,5 @@ class EditComponent extends Component {
     );
   }
 }
+
 export default connect()(EditComponent);

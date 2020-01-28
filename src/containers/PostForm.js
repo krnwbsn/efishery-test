@@ -2,37 +2,51 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 class PostForm extends Component {
+
   handleSubmit = e => {
     e.preventDefault();
+
     let localTime = moment().format('YYYY-MM-DD');
     let parsedDate = localTime + "T00:00:00.000Z";
-    const komoditas = this.getKomoditas.value;
-    const area_provinsi = this.getArea_provinsi.value;
-    const area_kota = this.getArea_kota.value;
-    const size = this.getSize.value;
-    const price = this.getPrice.value;
-    const data = {
-      id: new Date(),
-      komoditas,
-      area_provinsi,
-      area_kota,
-      price,
-      size,
-      tgl_parsed: parsedDate,
-      timestamp: moment().unix(),
-      isEdit: false
+
+    const {
+      getKomoditas,
+      getArea_provinsi,
+      getArea_kota,
+      getSize,
+      getPrice,
+    } = this;
+
+    if (!getKomoditas.value || !getArea_provinsi.value || !getArea_kota.value || !getSize.value || !getPrice.value) {
+      alert('Isi form yang lengkap');
+      return false;
     }
-    this.props.dispatch({
+    
+    const { dispatch } = this.props;
+    
+    dispatch({
       type: 'ADD_POST',
-      data
+      data: {
+        id: new Date(),
+        komoditas: getKomoditas.value,
+        area_provinsi: getArea_provinsi.value,
+        area_kota: getArea_kota.value,
+        size: getSize.value,
+        price: getPrice.value,
+        tgl_parsed: parsedDate,
+        timestamp: moment().unix(),
+        isEdit: false
+      },
     });
-    this.getKomoditas.value = '';
-    this.getArea_provinsi.value = '';
-    this.getArea_kota.value = '';
-    this.getSize.value = '';
-    this.getPrice = '';
-    console.log(data);
+
+    // Reset Form
+    getKomoditas.value = '';
+    getArea_provinsi.value = '';
+    getArea_kota.value = '';
+    getSize.value = '';
+    getPrice.value = '';
   };
+
   render() {
     return (
       <div className="post-container">
@@ -54,7 +68,7 @@ class PostForm extends Component {
             <input type="text" ref={(input) => this.getPrice = input} placeholder="Price" />
           </div>
           <div>
-            <button>Save</button>
+            <button type="submit">Save</button>
           </div>
         </form>
       </div>
