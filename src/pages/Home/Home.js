@@ -1,34 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { connect } from "react-redux";
-import { DataTable } from "../../components/elements";
+import {
+  DataTable,
+  TopBar
+} from "../../components/elements";
+import { FormEdit } from "../../components/form";
 import { getData } from '../../actions';
-import { Grid, Button, LinearProgress } from '@material-ui/core';
+import {
+  Grid,
+  LinearProgress
+} from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  withStyles
+} from '@material-ui/core/styles';
 
 function Home({ dispatch, data }) {
   useEffect(() => {
     getData({ dispatch })
-    console.log(data);
   }, [dispatch]);
-
-  const useStyles = makeStyles({
-    display: {
-      display: 'flex'
-    },
-    title: {
-      color: 'rgb(24, 51, 88)',
-      margin: '20px'
-    },
-    button: {
-      border: '1px solid rgb(24, 51, 88)',
-      height: '50%',
-      textTransform: 'none',
-      textAlign: 'right',
-      margin: '20px',
-      marginLeft: 'auto'
-    }
-  });
 
   const ColorLinearProgress = withStyles({
     colorPrimary: {
@@ -39,23 +30,17 @@ function Home({ dispatch, data }) {
     },
   })(LinearProgress);
 
-  const classes = useStyles();
-
   return (
-    <Grid>
-      <Grid item xs={12} className={classes.display}>
-        <h1 className={classes.title}>eFishery</h1>
-        <Button
-          className={classes.button}
-          startIcon={<Add />}
-        >Tambah Data</Button>
-      </Grid>
+    <Fragment>
+      <TopBar />
       {data.length === 0
         ? <ColorLinearProgress />
         : <Grid key={data.index}>
-          <DataTable post={data} key={data.id} />
+          {data.editing
+            ? <FormEdit post={data} key={data.index} />
+            : <DataTable post={data} key={data.index} />}
         </Grid>}
-    </Grid>
+    </Fragment>
   );
 }
 

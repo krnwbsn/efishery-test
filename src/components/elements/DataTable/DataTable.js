@@ -148,7 +148,7 @@ function EnhancedTableHead(props) {
 function DataTable({ post, dispatch }) {
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('calories');
+  const [orderBy, setOrderBy] = useState('');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -215,7 +215,7 @@ function DataTable({ post, dispatch }) {
                         }
                       >
                         Edit
-                    </Button>
+                      </Button>
                       <Button
                         variant="contained"
                         color="secondary"
@@ -227,7 +227,7 @@ function DataTable({ post, dispatch }) {
                         }
                       >
                         Hapus
-                </Button>
+                      </Button>
                     </TableCell>
                   </StyledTableRow>
                 )
@@ -239,7 +239,7 @@ function DataTable({ post, dispatch }) {
             )}
           </TableBody>
         </Table>
-      </TableContainer >
+      </TableContainer>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"

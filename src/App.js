@@ -19,16 +19,6 @@ export default class App extends React.Component {
               exact
               path={ROUTES.HOME()}
             />
-            <Route
-              component={pages.Add}
-              exact
-              path={ROUTES.ADD()}
-            />
-            <Route
-              component={pages.Edit}
-              exact
-              path={ROUTES.EDIT(':id')}
-            />
           </Switch>
         </Router>
       </main>

@@ -9,7 +9,7 @@ const reducer = (state = [], action) => {
         };
       });
     case "ADD_DATA":
-      return [...state, { ...action.data }];
+      return [...state, { ...action.data, isOpen: true }];
     case "DELETE_DATA":
       return state.filter(data => data.id !== action.id);
     case "EDIT_DATA":

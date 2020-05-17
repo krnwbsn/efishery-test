@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-class EditComponent extends Component {
+class FormEdit extends Component {
   handleEdit = e => {
     e.preventDefault();
 
@@ -76,4 +76,4 @@ class EditComponent extends Component {
   }
 }
 
-export default connect()(EditComponent);
+export default connect()(FormEdit);

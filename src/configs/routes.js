@@ -1,7 +1,5 @@
 const routes = {
-  HOME: () => `/`,
-  ADD: () => `/add`,
-  EDIT: (param) => `/edit/${param}`
+  HOME: () => `/`
 };
 
 export default routes;
