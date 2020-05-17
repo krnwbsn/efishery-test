@@ -11,9 +11,7 @@ import {
   TableSortLabel,
   Paper,
   Button,
-  TablePagination,
-  FormControlLabel,
-  Switch
+  TablePagination
 } from '@material-ui/core';
 import {
   Delete,
@@ -43,12 +41,18 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   editButton: {
+    '&:hover': {
+      backgroundColor: 'rgba(24, 51, 88, 0.9)'
+    },
     marginRight: theme.spacing(1),
     backgroundColor: 'rgb(24, 51, 88)',
     textTransform: 'none'
   },
   hapusButton: {
-    backgroundColor: '#d11a2a',
+    '&:hover': {
+      backgroundColor: 'rgba(255, 0, 0, 0.9)'
+    },
+    backgroundColor: 'rgb(255, 0, 0)',
     textTransform: 'none'
   }
 }));

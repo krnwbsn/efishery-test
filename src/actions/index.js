@@ -20,7 +20,7 @@ export const getData = async ({ dispatch }) => {
 					tgl_parsed: item.tgl_parsed,
 					timestamp: item.timestamp,
 					isEdit: false
-				},
+				}
 			})
 		});
 	} catch (e) {
