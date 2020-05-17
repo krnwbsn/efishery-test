@@ -44,16 +44,20 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: 'rgba(24, 51, 88, 0.9)'
     },
-    marginRight: theme.spacing(1),
+    margin: theme.spacing(1),
+    marginRight: 0,
     backgroundColor: 'rgb(24, 51, 88)',
-    textTransform: 'none'
+    textTransform: 'none',
+    minWidth: 75
   },
   hapusButton: {
     '&:hover': {
       backgroundColor: 'rgba(255, 0, 0, 0.9)'
     },
+    margin: theme.spacing(1),
     backgroundColor: 'rgb(255, 0, 0)',
-    textTransform: 'none'
+    textTransform: 'none',
+    minWidth: 75
   }
 }));
 

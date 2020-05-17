@@ -8,6 +8,8 @@ const reducer = (state = [], action) => {
           ...data
         };
       });
+    case 'ADD_AREA':
+      return [...state, { ...action.data, isOpen: true }];;
     case "ADD_DATA":
       return [...state, { ...action.data, isOpen: true }];
     case "DELETE_DATA":

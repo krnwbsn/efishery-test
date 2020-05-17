@@ -1,10 +1,9 @@
 import axios from 'axios';
-
-const API_URL = "https://stein.efishery.com/v1/storages/5e1edf521073e315924ceab4"
+import { SERVICES } from '../configs';
 
 export const getData = async ({ dispatch }) => {
 	try {
-		const response = await axios.get(`${API_URL}/list`);
+		const response = await axios.get(`${SERVICES.GET_DATA}`);
 		const data = response.data;
 		
 		data.forEach(item => {
@@ -26,4 +25,42 @@ export const getData = async ({ dispatch }) => {
 	} catch (e) {
 		console.error(e);
 	}
-}
+};
+
+export const getArea = async ({ dispatch }) => {
+	try {
+		const response = await axios.get(`${SERVICES.GET_AREA}`);
+		const area = response.data;
+		area.forEach((item, index) => {
+			dispatch({
+				type: 'ADD_AREA',
+				data: {
+					area_id: index,
+					province: item.province,
+					city: item.city
+				}
+			})
+		});
+	} catch (e) {
+		console.error(e);
+	}
+};
+
+export const getSize = async ({ dispatch }) => {
+	try {
+		const response = await axios.get(`${SERVICES.GET_SIZE}`);
+		const data = response.data;
+		
+		data.forEach((item, index) => {
+			dispatch({
+				type: 'ADD_SIZE',
+				data: {
+					size_id: index,
+					size: item.size
+				}
+			})
+		});
+	} catch (e) {
+		console.error(e);
+	}
+};

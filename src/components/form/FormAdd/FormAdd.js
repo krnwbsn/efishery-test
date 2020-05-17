@@ -11,6 +11,7 @@ import {
   Save,
   Cancel
 } from '@material-ui/icons';
+import SelectArea from '../SelectArea'
 
 const styles = () => ({
   modal: {
@@ -115,6 +116,7 @@ class FormAdd extends Component {
                 fullWidth
               />
             </Grid>
+            <SelectArea />
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
