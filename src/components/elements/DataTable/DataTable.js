@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
     margin: theme.spacing(1),
     marginRight: 0,
+    marginLeft: 0,
     backgroundColor: 'rgb(24, 51, 88)',
     textTransform: 'none',
     minWidth: 75
