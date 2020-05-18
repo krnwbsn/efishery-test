@@ -1,25 +1,8 @@
 import React, { useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Paper,
-  Button,
-  TablePagination
-} from '@material-ui/core';
-import {
-  Delete,
-  Edit
-} from '@material-ui/icons';
-import {
-  number,
-  date
-} from '../../../utils/text';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Paper, Button, TablePagination } from '@material-ui/core';
+import { Delete, Edit } from '@material-ui/icons';
+import { number, date } from '../../../utils/text';
 
 const useStyles = makeStyles((theme) => ({
   table: {

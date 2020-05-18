@@ -47,13 +47,12 @@ function SelectArea(props) {
     <Fragment>
       <Grid item xs={12}>
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel>Province</InputLabel>
+          <InputLabel>Provinsi</InputLabel>
           <Select
             labelId="area_province"
             id="area_province"
             label="Provinsi"
             onChange={handleChangeProvince}
-            size="small"
           >
             <MenuItem value="">
               <em>None</em>
@@ -64,13 +63,12 @@ function SelectArea(props) {
       </Grid>
       <Grid item xs={12}>
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel>City</InputLabel>
+          <InputLabel>Kota</InputLabel>
           <Select
             labelId="area_city"
             id="area_city"
-            label="City"
+            label="Kota"
             onChange={props.handleChangeCity}
-            size="small"
           >
             <MenuItem value="">
               <em>None</em>

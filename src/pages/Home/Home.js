@@ -38,7 +38,6 @@ function Home() {
 
   const dataFiltered = data.filter(item => {
     const komoditas = `${item.komoditas}`;
-
     if (komoditas.toLowerCase().includes(search.toLowerCase())) {
       return item;
     }
@@ -50,8 +49,8 @@ function Home() {
       {data.length === 0
         ? <ColorLinearProgress />
         : <Grid key={data.index}>
-            <DataTable data={dataFiltered} setData={setData} />
-          </Grid>}
+          <DataTable data={dataFiltered} setData={setData} />
+        </Grid>}
     </Fragment>
   );
 }

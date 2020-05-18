@@ -39,7 +39,7 @@ export const getArea = async () => {
 export const getSize = async () => {
 	try {
 		const response = await axios.get(`${SERVICES.GET_SIZE}`);
-		const size = response.data.map((item, index) => ({
+		const size = response.data.map((item) => ({
 			...item
 		}));
 

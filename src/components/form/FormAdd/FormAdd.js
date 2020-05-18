@@ -11,6 +11,7 @@ import {
   Cancel
 } from '@material-ui/icons';
 import SelectArea from '../SelectArea';
+import SelectSize from '../SelectSize';
 import { v4 as uuidv4 } from 'uuid';
 
 const styles = () => ({
@@ -92,7 +93,11 @@ class FormAdd extends Component {
 
     const propsArea = {
       handleChangeCity: this.handleChangeCity,
-      handleChangeProvince: this.handleChangeProvince,
+      handleChangeProvince: this.handleChangeProvince
+    }
+
+    const propsSize = {
+      handleChangeSize: this.handleChangeSize
     }
 
     return (
@@ -107,22 +112,11 @@ class FormAdd extends Component {
                 onChange={this.handleChangeKomoditas}
                 id="komoditas"
                 label="Komoditas"
-                size="small"
                 fullWidth
               />
             </Grid>
             <SelectArea {...propsArea} />
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                value={this.state.size}
-                onChange={this.handleChangeSize}
-                id="size"
-                label="Ukuran"
-                size="small"
-                fullWidth
-              />
-            </Grid>
+            <SelectSize {...propsSize} />
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -130,7 +124,6 @@ class FormAdd extends Component {
                 onChange={this.handleChangePrice}
                 id="price"
                 label="Harga"
-                size="small"
                 fullWidth
               />
             </Grid>
