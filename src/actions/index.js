@@ -1,66 +1,51 @@
 import axios from 'axios';
 import { SERVICES } from '../configs';
+import uniq from 'lodash/uniq';
 
-export const getData = async ({ dispatch }) => {
+export const getData = async () => {
 	try {
 		const response = await axios.get(`${SERVICES.GET_DATA}`);
-		const data = response.data;
-		
-		data.forEach(item => {
-			dispatch({
-				type: 'ADD_DATA',
-				data: {
-					id: item.uuid,
-					komoditas: item.komoditas,
-					area_provinsi: item.area_provinsi,
-					area_kota: item.area_kota,
-					size: item.size,
-					price: item.price,
-					tgl_parsed: item.tgl_parsed,
-					timestamp: item.timestamp,
-					isEdit: false
-				}
-			})
-		});
+		const data = response.data.map((item, index) => ({
+			...item,
+			id: item.uuid,
+			isEdit: false,
+			isOpen: true
+		}));
+
+		return data;
 	} catch (e) {
 		console.error(e);
+		return [];
 	}
 };
 
-export const getArea = async ({ dispatch }) => {
+export const getArea = async () => {
 	try {
 		const response = await axios.get(`${SERVICES.GET_AREA}`);
-		const area = response.data;
-		area.forEach((item, index) => {
-			dispatch({
-				type: 'ADD_AREA',
-				data: {
-					area_id: index,
-					province: item.province,
-					city: item.city
-				}
-			})
-		});
+		const province = uniq(response.data.map((item) => item.province)).map(i => ({
+			key: i,
+			value: i
+		}));
+
+		const list = response.data;
+
+		return { province, list };
 	} catch (e) {
 		console.error(e);
+		return { province: [], list: []};
 	}
 };
 
-export const getSize = async ({ dispatch }) => {
+export const getSize = async () => {
 	try {
 		const response = await axios.get(`${SERVICES.GET_SIZE}`);
-		const data = response.data;
-		
-		data.forEach((item, index) => {
-			dispatch({
-				type: 'ADD_SIZE',
-				data: {
-					size_id: index,
-					size: item.size
-				}
-			})
-		});
+		const size = response.data.map((item, index) => ({
+			...item
+		}));
+
+		return size;
 	} catch (e) {
 		console.error(e);
+		return [];
 	}
 };

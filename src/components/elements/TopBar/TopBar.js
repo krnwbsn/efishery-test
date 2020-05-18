@@ -53,7 +53,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const TopBar = () => {
+const TopBar = (props) => {
   const classes = useStyles();
 
   return (
@@ -65,8 +65,9 @@ const TopBar = () => {
           id="outlined-size-small"
           variant="outlined"
           size="small"
+          onChange={props.handleSearch}
         />
-        <ModalView />
+        <ModalView {...props} />
       </Grid>
     </Grid>
   )

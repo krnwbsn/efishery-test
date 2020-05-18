@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { 
-  Modal, 
-  Backdrop, 
+import {
+  Modal,
+  Backdrop,
   Fade,
   Button
 } from '@material-ui/core';
@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalView() {
+export default function ModalView(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -45,7 +45,8 @@ export default function ModalView() {
       <Button
         className={classes.button}
         startIcon={<Add />}
-        onClick={handleOpen}>
+        onClick={handleOpen}
+      >
         Tambah Data
       </Button>
       <Modal
@@ -64,6 +65,7 @@ export default function ModalView() {
           <div className={classes.paper}>
             <FormAdd
               id="transition-modal-description"
+              {...props}
               handleClose={handleClose}
             />
           </div>

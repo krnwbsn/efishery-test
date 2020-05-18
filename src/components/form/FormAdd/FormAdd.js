@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import moment from "moment";
 import {
   Grid,
@@ -11,7 +10,8 @@ import {
   Save,
   Cancel
 } from '@material-ui/icons';
-import SelectArea from '../SelectArea'
+import SelectArea from '../SelectArea';
+import { v4 as uuidv4 } from 'uuid';
 
 const styles = () => ({
   modal: {
@@ -35,6 +35,17 @@ const styles = () => ({
 });
 
 class FormAdd extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      komoditas: '',
+      size: '',
+      price: '',
+      province: '',
+      city: ''
+    }
+  }
+
   handleSubmit = e => {
     e.preventDefault();
 
@@ -42,44 +53,47 @@ class FormAdd extends Component {
     let parsedDate = localTime + "T00:00:00.000Z";
 
     const {
-      getKomoditas,
-      getArea_provinsi,
-      getArea_kota,
-      getSize,
-      getPrice,
-    } = this;
+      komoditas,
+      province,
+      city,
+      size,
+      price,
+    } = this.state;
 
-    if (!getKomoditas.value || !getArea_provinsi.value || !getArea_kota.value || !getSize.value || !getPrice.value) {
+    if (!komoditas || !province || !city || !size || !price) {
       alert('Isi form yang lengkap');
       return false;
     }
 
-    const { dispatch } = this.props;
+    const data = {
+      id: uuidv4(),
+      komoditas: komoditas,
+      area_provinsi: province,
+      area_kota: city,
+      size: size,
+      price: price,
+      tgl_parsed: parsedDate,
+      timestamp: moment().unix(),
+      isEdit: false
+    };
 
-    dispatch({
-      type: 'ADD_DATA',
-      data: {
-        id: new Date(),
-        komoditas: getKomoditas.value,
-        area_provinsi: getArea_provinsi.value,
-        area_kota: getArea_kota.value,
-        size: getSize.value,
-        price: getPrice.value,
-        tgl_parsed: parsedDate,
-        timestamp: moment().unix(),
-        isEdit: false
-      },
-    });
-
-    getKomoditas.value = '';
-    getArea_provinsi.value = '';
-    getArea_kota.value = '';
-    getSize.value = '';
-    getPrice.value = '';
+    this.props.setData([...this.props.data, { ...data }]);
+    this.props.handleClose();
   };
+
+  handleChangeKomoditas = (e) => this.setState({ komoditas: e.target.value });
+  handleChangeProvince = (e) => this.setState({ province: e.target.value });
+  handleChangeCity = (e) => this.setState({ city: e.target.value });
+  handleChangePrice = (e) => this.setState({ price: e.target.value });
+  handleChangeSize = (e) => this.setState({ size: e.target.value });
 
   render() {
     const { classes, handleClose } = this.props;
+
+    const propsArea = {
+      handleChangeCity: this.handleChangeCity,
+      handleChangeProvince: this.handleChangeProvince,
+    }
 
     return (
       <div>
@@ -89,38 +103,20 @@ class FormAdd extends Component {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                inputRef={(input) => this.getKomoditas = input}
+                value={this.state.komoditas}
+                onChange={this.handleChangeKomoditas}
                 id="komoditas"
                 label="Komoditas"
                 size="small"
                 fullWidth
               />
             </Grid>
+            <SelectArea {...propsArea} />
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                inputRef={(input) => this.getArea_provinsi = input}
-                id="area_provinsi"
-                label="Provinsi"
-                size="small"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                inputRef={(input) => this.getArea_kota = input}
-                id="area_kota"
-                label="Kota"
-                size="small"
-                fullWidth
-              />
-            </Grid>
-            <SelectArea />
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                inputRef={(input) => this.getSize = input}
+                value={this.state.size}
+                onChange={this.handleChangeSize}
                 id="size"
                 label="Ukuran"
                 size="small"
@@ -130,7 +126,8 @@ class FormAdd extends Component {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                inputRef={(input) => this.getPrice = input}
+                value={this.state.price}
+                onChange={this.handleChangePrice}
                 id="price"
                 label="Harga"
                 size="small"
@@ -144,7 +141,6 @@ class FormAdd extends Component {
                 variant="contained"
                 color="primary"
                 startIcon={<Save />}
-                onClick={handleClose}
               >
                 Simpan
               </Button>
@@ -166,5 +162,4 @@ class FormAdd extends Component {
   }
 }
 
-const styled = withStyles(styles)(FormAdd);
-export default connect()(styled);
+export default withStyles(styles)(FormAdd);

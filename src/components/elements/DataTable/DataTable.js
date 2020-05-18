@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { connect } from "react-redux";
 import {
   Table,
   TableBody,
@@ -150,7 +149,7 @@ function EnhancedTableHead(props) {
   )
 }
 
-function DataTable({ post, dispatch }) {
+function DataTable({ data, setData }) {
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('');
@@ -172,7 +171,11 @@ function DataTable({ post, dispatch }) {
     setPage(0);
   };
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, post.length - page * rowsPerPage);
+  const handleDelete = (row) => {
+    setData(data.filter(i => i.id !== row.id));
+  };
+
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -187,10 +190,10 @@ function DataTable({ post, dispatch }) {
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
-            rowCount={post.length}
+            rowCount={data.length}
           />
           <TableBody>
-            {stableSort(post, getComparator(order, orderBy))
+            {stableSort(data, getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
@@ -215,9 +218,6 @@ function DataTable({ post, dispatch }) {
                         className={classes.editButton}
                         size="small"
                         startIcon={<Edit />}
-                        onClick={() =>
-                          dispatch({ type: "EDIT_DATA", id: row.id })
-                        }
                       >
                         Edit
                       </Button>
@@ -227,9 +227,7 @@ function DataTable({ post, dispatch }) {
                         className={classes.hapusButton}
                         startIcon={<Delete />}
                         size="small"
-                        onClick={() =>
-                          dispatch({ type: "DELETE_DATA", id: row.id })
-                        }
+                        onClick={() => handleDelete(row)}
                       >
                         Hapus
                       </Button>
@@ -248,7 +246,7 @@ function DataTable({ post, dispatch }) {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={post.length}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
@@ -258,4 +256,4 @@ function DataTable({ post, dispatch }) {
   );
 }
 
-export default connect()(DataTable);
+export default (DataTable);

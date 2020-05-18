@@ -1,46 +1,59 @@
-import React, { useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import {
-  DataTable,
-  TopBar
-} from "../../components/elements";
+import React, { useEffect, Fragment, useState } from "react";
+import { DataTable, TopBar } from "../../components/elements";
 import { getData } from '../../actions';
-import {
-  Grid,
-  LinearProgress
-} from '@material-ui/core';
-import {
-  withStyles
-} from '@material-ui/core/styles';
+import { Grid, LinearProgress } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
-function Home({ dispatch, data }) {
+const ColorLinearProgress = withStyles({
+  colorPrimary: {
+    backgroundColor: '#b2dfdb',
+  },
+  barColorPrimary: {
+    backgroundColor: 'rgb(91, 181, 154)',
+  },
+})(LinearProgress);
+
+function Home() {
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState('');
+
   useEffect(() => {
-    getData({ dispatch })
-  }, [dispatch]);
+    loadData();
+  }, []);
 
-  const ColorLinearProgress = withStyles({
-    colorPrimary: {
-      backgroundColor: '#b2dfdb',
-    },
-    barColorPrimary: {
-      backgroundColor: 'rgb(91, 181, 154)',
-    },
-  })(LinearProgress);
+  const loadData = async () => {
+    const data = await getData();
+
+    // distinct array and remove index with null id
+    const newData = Array.from(new Set(data.map(i => i.id)))
+      .filter(i => i)
+      .map(i => data.find(item => item.id === i));
+
+    setData(newData);
+  }
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  }
+
+  const dataFiltered = data.filter(item => {
+    const komoditas = `${item.komoditas}`;
+
+    if (komoditas.toLowerCase().includes(search.toLowerCase())) {
+      return item;
+    }
+  });
 
   return (
     <Fragment>
-      <TopBar />
+      <TopBar setData={setData} data={data} handleSearch={handleSearch} />
       {data.length === 0
         ? <ColorLinearProgress />
         : <Grid key={data.index}>
-            <DataTable post={data} key={data.index} />
+            <DataTable data={dataFiltered} setData={setData} />
           </Grid>}
     </Fragment>
   );
 }
 
-const mapStateToProps = state => ({
-  data: state
-});
-
-export default connect(mapStateToProps)(Home);
+export default Home;
